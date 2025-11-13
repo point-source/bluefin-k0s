@@ -23,5 +23,21 @@ set -ouex pipefail
 
 # systemctl enable podman.socket
 
-# Install k0s
-curl --proto '=https' --tlsv1.2 -sSf https://get.k0s.sh | sudo sh
+# Get the latest stable k0s version
+K0S_VERSION=$(curl -sSLf "https://docs.k0sproject.io/stable.txt")
+
+echo "Installing k0s version: ${K0S_VERSION}"
+
+# Download the k0s binary for the latest stable release
+curl -sSLf "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-${K0S_VERSION}-amd64" -o /tmp/k0s
+
+# Install to /usr/local/bin
+install -m 755 /tmp/k0s /usr/local/bin/k0s
+
+# Create symlinks for convenience
+ln -sf /usr/local/bin/k0s /usr/local/bin/k0s-kubectl
+
+# Clean up
+rm /tmp/k0s
+
+echo "k0s ${K0S_VERSION} installed successfully"

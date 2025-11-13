@@ -32,10 +32,7 @@ echo "Installing k0s version: ${K0S_VERSION}"
 curl -sSLf "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-${K0S_VERSION}-amd64" -o /tmp/k0s
 
 # Install to /usr/local/bin
-install -m 755 /tmp/k0s /usr/local/bin/k0s
-
-# Create symlinks for convenience
-ln -sf /usr/local/bin/k0s /usr/local/bin/k0s-kubectl
+install -m 755 /tmp/k0s /usr/bin/k0s
 
 # Clean up
 rm /tmp/k0s
